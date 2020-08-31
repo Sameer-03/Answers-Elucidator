@@ -26,7 +26,7 @@ import com.DIscussionForum.AnwersElucidator.Repository.SolutionsDataRepo;
  * @author Sameer
  */
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:3000")
 public class SolutionsController {
 
 	@Autowired

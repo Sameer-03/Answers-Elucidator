@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,7 +28,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-//@Table("Solutions")
+@Table(name="Solutions")
 public class Solutions {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,11 +38,12 @@ public class Solutions {
 	private int qid;
 
 	@Column(name = "fk_uname")
-	private String uname;
+	private String username;//username
 
 	private String title;
 	private String description;
 
-	private Date pdate = (new Date());
+	@Column(name="pdate")
+	private Date queryDate = (new Date());//queryDate
 
 }

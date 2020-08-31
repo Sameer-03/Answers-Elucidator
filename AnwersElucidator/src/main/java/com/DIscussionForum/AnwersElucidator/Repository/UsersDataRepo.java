@@ -14,5 +14,5 @@ import com.DIscussionForum.AnwersElucidator.Dto.Users;
  * @author Sameer
  */
 public interface UsersDataRepo extends JpaRepository<Users,String>{
-    boolean existsByUnameAndPassword(String uname, String password);
+    boolean existsByUsernameAndPassword(String username, String password);
 }

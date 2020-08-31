@@ -30,20 +30,36 @@ import lombok.Setter;
 @Entity
 @Table(name="Questions")
 public class Questions {
+	/* int qid 
+	 * int upvote (not required)
+	 * 
+	 * String username 
+	 * String category
+	 * String title
+	 * String description
+	 * Date queryDate
+	 * 
+	 */
+	
    @Id
    @GeneratedValue(strategy=GenerationType.IDENTITY)
    private int qid;
    
    @Column(name="fk_uname")
-   private String uname;
+   private String username;
    
    private String category;
    private String title;
    private String description;
-   private Date pdate=(new Date());
+   
+   @Column(name="pdate")
+   private Date queryDate=(new Date());//queryDate
    private int upvote;
-       
+   
 }
+
+
+
 /***************RELATIONS*****************
    
    @ManyToOne

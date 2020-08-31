@@ -27,13 +27,13 @@ public class Users {
 
 	@Id
 	@Column(name = "uname")
-	private String uname;
+	private String username;
 
 	@Column(name = "fname")
-	private String fname;
+	private String firstname;
 
 	@Column(name = "lname")
-	private String lname;
+	private String lastname;
 
 	@Column(name = "email")
 	private String email;

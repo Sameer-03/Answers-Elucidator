@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.DIscussionForum.AnwersElucidator.Dto.Users;
@@ -21,7 +22,7 @@ import com.DIscussionForum.AnwersElucidator.Repository.UsersDataRepo;
  */
 
 @RestController
-@CrossOrigin(origins="http://localhost:4200")
+@CrossOrigin(origins="http://localhost:3000")
 public class UsersController {
 
     @Autowired
@@ -30,13 +31,27 @@ public class UsersController {
     @GetMapping(path="/users")
     public List<Users> getAllUsers()
     {
+    	System.out.println("Entered User");
         return userData.findAll();
     }
+    
+
     
 }
 
 
 /*******************************************************************************
+    post -> uname/pass
+    return -> userObj / null
+     
+        
+    @GetMapping(path="/user/{uid}")
+    public Optional<Users> getById(@PathVariable int uid)
+    {
+        return userData.findById(uid);
+    }
+    
+    
     
     @GetMapping(path="/user/{uid}")
     public Optional<Users> getById(@PathVariable int uid)
