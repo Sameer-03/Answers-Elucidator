@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.DIscussionForum.AnwersElucidator.CustomExceptions.ResourceAlreadyExistsException;
-import com.DIscussionForum.AnwersElucidator.CustomExceptions.ResourceNotFoundException;
+
 import com.DIscussionForum.AnwersElucidator.Dto.Users;
 import com.DIscussionForum.AnwersElucidator.Repository.UsersDataRepo;
 

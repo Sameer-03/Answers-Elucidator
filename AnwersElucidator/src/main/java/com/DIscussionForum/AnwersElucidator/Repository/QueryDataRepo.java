@@ -5,7 +5,7 @@
  */
 package com.DIscussionForum.AnwersElucidator.Repository;
 
-import com.DIscussionForum.AnwersElucidator.Dto.Questions;
+import com.DIscussionForum.AnwersElucidator.Dto.Query;
 
 import java.util.ArrayList;
 
@@ -15,7 +15,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author Sameer
  */
-public interface QuestionDataRepo extends JpaRepository<Questions,Integer>{
-    ArrayList<Questions> findByUsername(String username);
-    Questions findByUsernameAndQid(String username, int qid);
+public interface QueryDataRepo extends JpaRepository<Query,Integer>{
+    ArrayList<Query> findByUsername(String username);
+    Query findByUsernameAndQid(String username, int qid);
 }

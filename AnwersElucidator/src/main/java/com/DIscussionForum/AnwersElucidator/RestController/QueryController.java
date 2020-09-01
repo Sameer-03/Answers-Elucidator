@@ -6,6 +6,7 @@
 package com.DIscussionForum.AnwersElucidator.RestController;
 
 import java.net.URI;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,9 +24,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.DIscussionForum.AnwersElucidator.CustomExceptions.ResourceNotFoundException;
-import com.DIscussionForum.AnwersElucidator.Dto.Questions;
-import com.DIscussionForum.AnwersElucidator.Repository.QuestionDataRepo;
+import com.DIscussionForum.AnwersElucidator.Dto.Query;
+import com.DIscussionForum.AnwersElucidator.Repository.QueryDataRepo;
 
 /**
  *
@@ -33,75 +33,78 @@ import com.DIscussionForum.AnwersElucidator.Repository.QuestionDataRepo;
  */
 @RestController
 @CrossOrigin(origins="http://localhost:3000")
-public class QuestionsController {
+public class QueryController {
     
     @Autowired
-    QuestionDataRepo quesData;
+    QueryDataRepo queryData;
     
     // Find all questions
-    @GetMapping(path="/questions")
-    public List<Questions> getAllQuestions() 
+    @GetMapping(path="/allquery")
+    public List<Query> getAllQuestions() 
     {
-        return quesData.findAll();
+        return queryData.findAll();
     }
     
-    
 
-    
 /*
  * Get By username
  */
     @GetMapping(path="users/{username}/queries")
-    public List<Questions> getAllQuestions(@PathVariable String username) 
+    public List<Query> getAllQuestions(@PathVariable String username) 
     {
     	System.out.println("Entered");
-        return quesData.findByUsername(username);
+        return queryData.findByUsername(username);
     }
 /*
  * get by qid and uname
  */
 
     @GetMapping(path="users/{username}/queries/{qid}")
-    public Questions getQuestionsByNameAndId(@PathVariable String username,@PathVariable int qid) 
+    public Query getQuestionsByNameAndId(@PathVariable String username,@PathVariable int qid) 
     {	
     	
-        return quesData.findByUsernameAndQid(username,qid);
+        return queryData.findByUsernameAndQid(username,qid);
     }
     
 /*
  * Put Mapping 
  */
-    @PutMapping(path="users/{username}/queries/{id}")
-	public ResponseEntity<Questions>  updateQuestions(@PathVariable String username,@PathVariable int qid,@RequestBody Questions query){
-		Optional<Questions> _query = quesData.findById(qid);
+    @PutMapping(path="users/{username}/queries/{qid}")
+	public ResponseEntity<Query>  updateQuestions(@PathVariable String username,@PathVariable int qid,@RequestBody Query query){
+		
+    	Optional<Query> _query = queryData.findById(qid);
 		if(_query.isPresent())
 		{
-			Questions q=_query.get();
-			q.setCategory(query.getCategory());
-			q.setDescription(query.getDescription());
-			q.setTitle(query.getTitle());
-			return new ResponseEntity<Questions>(query,HttpStatus.OK);
+			query.setUsername(username);
+//			Query q=_query.get();
+////			q.setQid(q.geyQid());
+//			q.setCategories(query.getCategories());
+//			q.setDescription(query.getDescription());
+//			q.setTitle(query.getTitle());
+			query.setQid(qid);
+			queryData.save(query);
+			return new ResponseEntity<>(query,HttpStatus.OK);
 		}
-		return new ResponseEntity<Questions>(query,HttpStatus.NOT_FOUND);
+		return new ResponseEntity<Query>(query,HttpStatus.NOT_FOUND);
 	}
 	
 /*
  * Post Mapping
  */
     @PostMapping(path="/users/{username}/queries")
-    public ResponseEntity<Questions> saveQuestionByUsername(@RequestBody Questions ques)
+    public ResponseEntity<Query> saveQuestionByUsername(@RequestBody Query ques)
     {
-        Questions x=quesData.save(ques);
-        URI uri=ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(x.getQid()).toUri();
+        Query x=queryData.save(ques);
+        URI uri=ServletUriComponentsBuilder.fromCurrentRequest().path("/{qid}").buildAndExpand(x.getQid()).toUri();
         return ResponseEntity.created(uri).build();
     }
 /*
  * Delete Mapping By qid
  */
-    @DeleteMapping("/users/{username}/queries/{id}")
+    @DeleteMapping("/users/{username}/queries/{qid}")
 	public ResponseEntity<Void> deleteQuestions(@PathVariable String username,@PathVariable int qid ){
 		try {
-			quesData.deleteById(qid);
+			queryData.deleteById(qid);
 			return ResponseEntity.noContent().build();
 		}
     	catch(Exception ex)

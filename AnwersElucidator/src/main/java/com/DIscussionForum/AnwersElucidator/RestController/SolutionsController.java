@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.DIscussionForum.AnwersElucidator.CustomExceptions.ResourceNotFoundException;
 import com.DIscussionForum.AnwersElucidator.Dto.Solutions;
 import com.DIscussionForum.AnwersElucidator.Repository.SolutionsDataRepo;
 
@@ -37,14 +36,14 @@ public class SolutionsController {
 		return sol.findAll();
 	}
 
-	@GetMapping("/solutions/{sid}")
-	public Solutions getSingleSolution(@PathVariable int sid) {
-		Solutions s = sol.findById(sid);
-		if (s == null) {
-			throw new ResourceNotFoundException("Solution not available for this sid !");
-		}
-		return s;
-	}
+//	@GetMapping("/solutions/{sid}")
+//	public Solutions getSingleSolution(@PathVariable int sid) {
+//		Solutions s = sol.findById(sid);
+//		if (s == null) {
+//			throw new ResourceNotFoundException("Solution not available for this sid !");
+//		}
+//		return s;
+//	}
 
 	@PostMapping("/solutions")
 	public ResponseEntity<Void> postSolution(@RequestBody Solutions s) {

@@ -6,13 +6,20 @@
 package com.DIscussionForum.AnwersElucidator.Dto;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,8 +35,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name="Questions")
-public class Questions {
+@Table(name="Query")
+public class Query {
 	/* int qid 
 	 * int upvote (not required)
 	 * 
@@ -41,26 +48,51 @@ public class Questions {
 	 * 
 	 */
 	
-   @Id
-   @GeneratedValue(strategy=GenerationType.IDENTITY)
-   private int qid;
-   
    @Column(name="fk_uname")
    private String username;
-   
-   private String category;
    private String title;
    private String description;
    
+   //@JsonIgnoreProperties("query")
+   @OneToMany(fetch=FetchType.EAGER,
+		   cascade= {CascadeType.ALL})
+   @JoinColumn(name="fk_qid", referencedColumnName="qid")
+   private List<Category> categories;
+   
+
    @Column(name="pdate")
-   private Date queryDate=(new Date());//queryDate
+   private Date querydate=(new Date());//queryDate
+
    private int upvote;
+   
+   @Id
+   @GeneratedValue(strategy=GenerationType.IDENTITY)
+   private int qid;
    
 }
 
 
 
 /***************RELATIONS*****************
+   //   @JsonIgnoreProperties("query")
+//   @OneToMany(mappedBy="query",fetch=FetchType.EAGER,
+//		   cascade= {CascadeType.ALL})
+//   private List<Category> categories;
+   
+   //private String category;
+   
+//   @JsonIgnoreProperties("query")
+//   @OneToMany(fetch=FetchType.EAGER,
+//		   cascade= {CascadeType.ALL})
+//   @JoinColumn(name="cat",referencedColumnName="qid")
+//   private List<Category> categories;
+//   
+
+   
+   
+   
+   
+   OLD CODE
    
    @ManyToOne
    @JoinColumn(name="fk_uname")
