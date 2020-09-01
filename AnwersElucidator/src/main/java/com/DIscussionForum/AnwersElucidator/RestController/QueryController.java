@@ -59,18 +59,18 @@ public class QueryController {
  * get by qid and uname
  */
 
-    @GetMapping(path="users/{username}/queries/{qid}")
-    public Query getQuestionsByNameAndId(@PathVariable String username,@PathVariable int qid) 
+    @GetMapping(path="users/{username}/queries/{id}")
+    public Query getQuestionsByNameAndId(@PathVariable String username,@PathVariable("id") int qid) 
     {	
-    	
-        return queryData.findByUsernameAndQid(username,qid);
+    	return queryData.findByUsernameAndId(username,qid);
+//        return queryData.findByUsernameAndQid(username,qid);
     }
     
 /*
  * Put Mapping 
  */
-    @PutMapping(path="users/{username}/queries/{qid}")
-	public ResponseEntity<Query>  updateQuestions(@PathVariable String username,@PathVariable int qid,@RequestBody Query query){
+    @PutMapping(path="/users/{username}/queries/{id}")
+	public ResponseEntity<Query>  updateQuestions(@PathVariable("username") String username,@PathVariable("id") int qid,@RequestBody Query query){
 		
     	Optional<Query> _query = queryData.findById(qid);
 		if(_query.isPresent())
@@ -81,7 +81,7 @@ public class QueryController {
 //			q.setCategories(query.getCategories());
 //			q.setDescription(query.getDescription());
 //			q.setTitle(query.getTitle());
-			query.setQid(qid);
+			query.setId(qid);
 			queryData.save(query);
 			return new ResponseEntity<>(query,HttpStatus.OK);
 		}
@@ -89,20 +89,29 @@ public class QueryController {
 	}
 	
 /*
+ * Changes Made to React App
+ * api->QueryDataService
+ * put -> post 
+ * 
  * Post Mapping
  */
     @PostMapping(path="/users/{username}/queries")
-    public ResponseEntity<Query> saveQuestionByUsername(@RequestBody Query ques)
+    public ResponseEntity<Query> saveQuestionByUsername(@PathVariable("username") String username,@RequestBody Query ques)
     {
         Query x=queryData.save(ques);
-        URI uri=ServletUriComponentsBuilder.fromCurrentRequest().path("/{qid}").buildAndExpand(x.getQid()).toUri();
+        URI uri=ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(x.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
+    
+    
+    
+    
+    
 /*
  * Delete Mapping By qid
  */
-    @DeleteMapping("/users/{username}/queries/{qid}")
-	public ResponseEntity<Void> deleteQuestions(@PathVariable String username,@PathVariable int qid ){
+    @DeleteMapping("/users/{username}/queries/{id}")
+	public ResponseEntity<Void> deleteQuestions(@PathVariable("username") String username,@PathVariable("id") int qid ){
 		try {
 			queryData.deleteById(qid);
 			return ResponseEntity.noContent().build();
@@ -148,6 +157,7 @@ public Optional<Questions> getQuestion(@PathVariable int qid)
     {
         throw new ResourceNotFoundException("Question Not Found !");
     }
+    
     return ques;
 }
 */    

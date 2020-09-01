@@ -16,6 +16,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Sameer
  */
 public interface QueryDataRepo extends JpaRepository<Query,Integer>{
-    ArrayList<Query> findByUsername(String username);
-    Query findByUsernameAndQid(String username, int qid);
+	
+	ArrayList<Query> findByUsername(String username);
+	
+	Query findByUsernameAndId(String username, int id);
+    //Query findByUsernameAndQid(String username, int qid);
 }

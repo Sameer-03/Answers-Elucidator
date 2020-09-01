@@ -58,6 +58,7 @@ public class LoginRegisterController {
     @PostMapping(path="/register")
     public ResponseEntity<Users> registerUser(@RequestBody Users user)
     {
+    	System.out.println("Entered Register");
         boolean present=userData.existsById(user.getUsername());
         if(present)
         {

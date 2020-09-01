@@ -30,12 +30,20 @@ import lombok.Setter;
 @Entity
 @Table(name="Solutions")
 public class Solutions {
+	/*
+	 * int sid  (primary key for Solution Table)
+	 * int qid	(Foreign Key referencing Question Table)
+	 * string username
+	 * string description
+	 * Date date 
+	 */
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int sid;
 
 	@Column(name = "fk_qid")
-	private int qid;
+	private int qid;  // rename to id
 
 	@Column(name = "fk_uname")
 	private String username;//username
@@ -44,6 +52,6 @@ public class Solutions {
 	private String description;
 
 	@Column(name="pdate")
-	private Date queryDate = (new Date());//queryDate
+	private Date date = (new Date());//queryDate
 
 }

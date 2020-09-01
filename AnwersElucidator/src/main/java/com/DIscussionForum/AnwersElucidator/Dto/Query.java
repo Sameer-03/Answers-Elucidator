@@ -53,43 +53,46 @@ public class Query {
    private String title;
    private String description;
    
-   //@JsonIgnoreProperties("query")
-   @OneToMany(fetch=FetchType.EAGER,
-		   cascade= {CascadeType.ALL})
-   @JoinColumn(name="fk_qid", referencedColumnName="qid")
-   private List<Category> categories=new ArrayList<>();
-   
-
-   @Column(name="pdate")
-   private Date querydate=(new Date());//queryDate
-
-   private int upvote;
    
    @Id
    @GeneratedValue(strategy=GenerationType.IDENTITY)
-   private int qid;
+   @Column(name="qid")
+   private int id;
    
-   public ArrayList<String> getCategories()
+   //@JsonIgnoreProperties("query")
+   @OneToMany(fetch=FetchType.EAGER,
+		   cascade= {CascadeType.ALL})
+   @JoinColumn(name="fk_qid") //, referencedColumnName="id"
+   private List<Category> categoryList=new ArrayList<>();
+   
+
+   @Column(name="pdate")
+   private Date date=(new Date());//queryDate
+
+   private int upvote;
+   
+   
+   public ArrayList<String> getCategoryList()
    {
 	   String c;
 	   ArrayList<String> arr=new ArrayList<>();
-	   for(int i=0; i< categories.size(); i++)
+	   for(int i=0; i< categoryList.size(); i++)
 	   {
-		   c=categories.get(i).getCategory();
+		   c=categoryList.get(i).getCategory();
 		   arr.add(c);
 	   }
 	   return arr;
    }
    
-   @JsonProperty("categories")
-   public void setCategories(List<String> cat)
+   @JsonProperty("categoryList")
+   public void setCategoryList(List<String> cat)
    {
 	   if(cat!=null)
 	   {
 		   for(int i =0; i<cat.size(); i++)
 		   {
 			   Category c=new Category(cat.get(i));
-			   categories.add(c);
+			   categoryList.add(c);
 		   }
 	   }
    }
