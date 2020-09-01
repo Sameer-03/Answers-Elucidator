@@ -5,6 +5,7 @@
  */
 package com.DIscussionForum.AnwersElucidator.Dto;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,9 +20,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,7 +31,7 @@ import lombok.Setter;
  * @author Sameer
  */
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -57,7 +57,7 @@ public class Query {
    @OneToMany(fetch=FetchType.EAGER,
 		   cascade= {CascadeType.ALL})
    @JoinColumn(name="fk_qid", referencedColumnName="qid")
-   private List<Category> categories;
+   private List<Category> categories=new ArrayList<>();
    
 
    @Column(name="pdate")
@@ -68,6 +68,31 @@ public class Query {
    @Id
    @GeneratedValue(strategy=GenerationType.IDENTITY)
    private int qid;
+   
+   public ArrayList<String> getCategories()
+   {
+	   String c;
+	   ArrayList<String> arr=new ArrayList<>();
+	   for(int i=0; i< categories.size(); i++)
+	   {
+		   c=categories.get(i).getCategory();
+		   arr.add(c);
+	   }
+	   return arr;
+   }
+   
+   @JsonProperty("categories")
+   public void setCategories(List<String> cat)
+   {
+	   if(cat!=null)
+	   {
+		   for(int i =0; i<cat.size(); i++)
+		   {
+			   Category c=new Category(cat.get(i));
+			   categories.add(c);
+		   }
+	   }
+   }
    
 }
 

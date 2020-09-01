@@ -22,6 +22,11 @@ import lombok.Setter;
 @Table(name="Category")
 public class Category {
 	
+	public Category(String category) {
+		super();
+		this.category = category;
+	}
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int cid;
