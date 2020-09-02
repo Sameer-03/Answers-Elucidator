@@ -14,7 +14,7 @@ create table Users(fname varchar(30),lname varchar(30),uname varchar(30) not nul
 
 create table Query(fk_uname varchar(30), qid integer auto_increment not null, 
     title varchar(200), description varchar(1000) , 
-    pdate timestamp default sysdate not null, upvote integer default 0, primary key(qid), 
+    pdate timestamp default sysdate, upvote integer default 0, primary key(qid), 
     foreign key (fk_uname) references Users(uname) ON DELETE CASCADE ON UPDATE CASCADE);    
     
 --create table Query(fk_uname varchar(30), qid integer auto_increment not null, category varchar(10), 

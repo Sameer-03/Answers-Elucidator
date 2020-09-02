@@ -18,4 +18,5 @@ import com.DIscussionForum.AnwersElucidator.Dto.Solutions;
  */
 public interface SolutionsDataRepo extends JpaRepository<Solutions,Integer> {
 	List<Solutions> findAllByQid(int qid);
+	List<Solutions> findAllByQidOrderByDateDesc(int qid);
 }

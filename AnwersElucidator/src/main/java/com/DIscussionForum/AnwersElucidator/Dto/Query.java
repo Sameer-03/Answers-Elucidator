@@ -67,7 +67,7 @@ public class Query {
    
 
    @Column(name="pdate")
-   private Date date=(new Date());//queryDate
+   private Date date;//=(new Date());//queryDate
 
    private int upvote;
    

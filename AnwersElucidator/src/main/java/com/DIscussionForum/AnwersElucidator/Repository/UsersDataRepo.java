@@ -5,7 +5,10 @@
  */
 package com.DIscussionForum.AnwersElucidator.Repository;
 
+import java.util.ArrayList;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.DIscussionForum.AnwersElucidator.Dto.Users;
 
@@ -15,4 +18,7 @@ import com.DIscussionForum.AnwersElucidator.Dto.Users;
  */
 public interface UsersDataRepo extends JpaRepository<Users,String>{
     boolean existsByUsernameAndPassword(String username, String password);
+    @Query("select username from Users")
+    ArrayList<String> findUsername();
+
 }

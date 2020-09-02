@@ -55,6 +55,6 @@ public class Solutions {
 	private String description;
 
 	@Column(name="pdate")
-	private Date date = (new Date());//queryDate
+	private Date date;// = (new Date());//queryDate
 
 }

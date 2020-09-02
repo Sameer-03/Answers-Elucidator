@@ -42,7 +42,8 @@ public class QueryController {
     @GetMapping(path="/allquery")
     public List<Query> getAllQuestions() 
     {
-        return queryData.findAll();
+    	return queryData.findAllByOrderByDateDesc();
+        //return queryData.findAll();
     }
     
 
@@ -53,7 +54,7 @@ public class QueryController {
     public List<Query> getAllQuestions(@PathVariable String username) 
     {
     	System.out.println("Entered");
-        return queryData.findByUsername(username);
+        return queryData.findByUsernameOrderByDateDesc(username);
     }
 /*
  * get by qid and uname

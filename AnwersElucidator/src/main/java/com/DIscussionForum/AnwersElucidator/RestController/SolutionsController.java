@@ -48,7 +48,7 @@ public class SolutionsController {
 	@GetMapping("/solutions/byqid/{qid}")
 	public List<Solutions> getSolutionByQid(@PathVariable("qid") int qid)
 	{
-		ArrayList<Solutions> arr=(ArrayList<Solutions>) sol.findAllByQid(qid);
+		ArrayList<Solutions> arr=(ArrayList<Solutions>) sol.findAllByQidOrderByDateDesc(qid);
 		return arr;
 	}
 	

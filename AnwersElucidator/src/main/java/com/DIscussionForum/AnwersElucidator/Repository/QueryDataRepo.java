@@ -16,9 +16,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Sameer
  */
 public interface QueryDataRepo extends JpaRepository<Query,Integer>{
+	ArrayList<Query> findAllByOrderByDateDesc();
 	
 	ArrayList<Query> findByUsername(String username);
+	ArrayList<Query> findByUsernameOrderByDateDesc(String username);
 	
 	Query findByUsernameAndId(String username, int id);
+	
     //Query findByUsernameAndQid(String username, int qid);
 }

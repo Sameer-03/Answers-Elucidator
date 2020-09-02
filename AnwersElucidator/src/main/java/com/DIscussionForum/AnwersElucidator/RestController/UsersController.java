@@ -28,13 +28,19 @@ public class UsersController {
     @Autowired
     UsersDataRepo userData;
     
+//    @GetMapping(path="/users")
+//    public List<Users> getAllUsers()
+//    {
+//    	System.out.println("Entered User");
+//        return userData.findAll();
+//    }
+    
     @GetMapping(path="/users")
-    public List<Users> getAllUsers()
+    public List<String> getAllUsers()
     {
     	System.out.println("Entered User");
-        return userData.findAll();
+        return userData.findUsername();
     }
-    
 
     
 }
