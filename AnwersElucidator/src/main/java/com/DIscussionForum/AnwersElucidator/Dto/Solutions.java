@@ -14,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,6 +44,7 @@ public class Solutions {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int sid;
 
+	@JsonProperty("id")
 	@Column(name = "fk_qid")
 	private int qid;  // rename to id
 
